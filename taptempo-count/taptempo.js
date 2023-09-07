@@ -2,6 +2,7 @@ const beat = document.querySelector("html");
 let groundZero = 0;
 let lastTap = 0;
 let counter = 0;
+let all_counter = 0;
 const bpmDiv = document.getElementById("bpm");
 const countDiv = document.getElementById("counter");
 let tapDiff = 0;
@@ -46,8 +47,9 @@ function tapTempo() {
   }
   // eslint-disable-next-line no-plusplus
   counter++;
+  all_counter++;
   bpmDiv.innerHTML = avgbpm;
-  countDiv.innerHTML = counter;
+  countDiv.innerHTML = all_counter;
 
   // console.log(`elapsed: ${elapsed} avgbpm: ${avgbpm}`);
   if (elapsed > 3000) {
