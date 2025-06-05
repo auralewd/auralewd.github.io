@@ -54,7 +54,7 @@
 </head>
 <body>
   <div id="stopwatch">0.000</div>
-  <button id="fullscreen-btn" title="Fullscreen">⛶</button>
+    <button id="fullscreen-btn" title="Fullscreen" aria-label="Go fullscreen" type="button" onclick="goFullscreen()">⛶</button>
   <script>
     const el = document.getElementById('stopwatch');
     let timer = null;
@@ -95,19 +95,18 @@
     document.body.addEventListener('touchend', stop);
     document.body.addEventListener('touchcancel', stop);
 
-    // Fullscreen button
-    const fsBtn = document.getElementById('fullscreen-btn');
-    fsBtn.addEventListener('click', () => {
-      // Use document.documentElement for full page fullscreen
+    function goFullscreen() {
       const elem = document.documentElement;
       if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) { // Safari
+        elem.requestFullscreen({ navigationUI: "hide" }).catch(()=>{elem.requestFullscreen().catch(()=>{});});
+      } else if (elem.webkitRequestFullscreen) {
         elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) { // IE11
+      } else if (elem.msRequestFullscreen) {
         elem.msRequestFullscreen();
+      } else {
+        alert("Fullscreen not supported on this device/browser.");
       }
-    });
+    }
   </script>
 </body>
 </html>
