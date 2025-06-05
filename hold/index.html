@@ -53,7 +53,7 @@
   </style>
 </head>
 <body>
-  <div id="stopwatch">0.000</div>
+  <div id="stopwatch">0.00q</div>
     <button id="fullscreen-btn" title="Fullscreen" aria-label="Go fullscreen" type="button" onclick="goFullscreen()">⛶</button>
   <script>
     const el = document.getElementById('stopwatch');
@@ -62,13 +62,13 @@
 
     function update() {
       const elapsed = (performance.now() - startTime) / 1000;
-      el.textContent = elapsed.toFixed(3);
+      el.textContent = elapsed.toFixed(2);
       timer = requestAnimationFrame(update);
     }
 
     function start() {
       document.body.classList.add('holding');
-      el.textContent = '0.000';
+      el.textContent = '0.00';
       startTime = performance.now();
       if (!timer) update();
     }
