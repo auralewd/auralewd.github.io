@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Stopwatch</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #stopwatch {
+      font-size: 10vw; /* large and responsive */
+      color: white;
+      width: 100vw;
+      text-align: center;
+      cursor: pointer;
+      touch-action: none;
+      font-family: monospace, monospace;
+      user-select: none;
+    }
+    body.holding {
+      background-color: #001144; /* dark blue */
+    }
+  </style>
+</head>
+<body>
+  <div id="stopwatch">0.000</div>
+  <script>
+    const el = document.getElementById('stopwatch');
+    let timer = null;
+    let startTime = 0;
+
+    function update() {
+      const elapsed = (performance.now() - startTime) / 1000;
+      el.textContent = elapsed.toFixed(3);
+      timer = requestAnimationFrame(update);
+    }
+
+    function start() {
+      document.body.classList.add('holding');
+      el.textContent = '0.000';
+      startTime = performance.now();
+      if (!timer) update();
+    }
+
+    function stop() {
+      document.body.classList.remove('holding');
+      if (timer) {
+        cancelAnimationFrame(timer);
+        timer = null;
+      }
+    }
+
+    // Mouse events
+    el.addEventListener('mousedown', e => {
+      if (e.button === 0) start();
+    });
+    el.addEventListener('mouseup', stop);
+    el.addEventListener('mouseleave', stop);
+
+    // Touch events
+    el.addEventListener('touchstart', e => {
+      e.preventDefault();
+      start();
+    }, {passive: false});
+    el.addEventListener('touchend', stop);
+    el.addEventListener('touchcancel', stop);
+  </script>
+</body>
+</html>
