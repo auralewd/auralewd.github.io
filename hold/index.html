@@ -28,10 +28,33 @@
     body.holding {
       background-color: #001144; /* dark blue */
     }
+    #fullscreen-btn {
+      position: fixed;
+      left: 1em;
+      bottom: 1em;
+      z-index: 10;
+      font-size: 2em;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      border-radius: 0.5em;
+      padding: 0.2em 0.5em;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      outline: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      user-select: none;
+    }
+    #fullscreen-btn:hover, #fullscreen-btn:focus {
+      opacity: 1;
+      background: #001144;
+    }
   </style>
 </head>
 <body>
   <div id="stopwatch">0.000</div>
+  <button id="fullscreen-btn" title="Fullscreen">⛶</button>
   <script>
     const el = document.getElementById('stopwatch');
     let timer = null;
@@ -71,6 +94,20 @@
     }, {passive: false});
     document.body.addEventListener('touchend', stop);
     document.body.addEventListener('touchcancel', stop);
+
+    // Fullscreen button
+    const fsBtn = document.getElementById('fullscreen-btn');
+    fsBtn.addEventListener('click', () => {
+      // Use document.documentElement for full page fullscreen
+      const elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) { // Safari
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { // IE11
+        elem.msRequestFullscreen();
+      }
+    });
   </script>
 </body>
 </html>
