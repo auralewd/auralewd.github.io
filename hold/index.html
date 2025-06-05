@@ -57,21 +57,20 @@
         timer = null;
       }
     }
-
     // Mouse events
-    el.addEventListener('mousedown', e => {
+    document.body.addEventListener('mousedown', e => {
       if (e.button === 0) start();
     });
-    el.addEventListener('mouseup', stop);
-    el.addEventListener('mouseleave', stop);
+    document.body.addEventListener('mouseup', stop);
+    document.body.addEventListener('mouseleave', stop);
 
     // Touch events
-    el.addEventListener('touchstart', e => {
+    document.body.addEventListener('touchstart', e => {
       e.preventDefault();
       start();
     }, {passive: false});
-    el.addEventListener('touchend', stop);
-    el.addEventListener('touchcancel', stop);
+    document.body.addEventListener('touchend', stop);
+    document.body.addEventListener('touchcancel', stop);
   </script>
 </body>
 </html>
